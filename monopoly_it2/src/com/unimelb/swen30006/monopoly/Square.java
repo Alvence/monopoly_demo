@@ -8,9 +8,9 @@ package com.unimelb.swen30006.monopoly;
  *
  */
 public abstract class Square {
-	private String name;
-	private Square nextSquare;
-	private int index;
+	protected String name;
+	protected Square nextSquare;
+	protected int index;
 	
 	public Square(String name, int index) {
 		this.name = name; 
