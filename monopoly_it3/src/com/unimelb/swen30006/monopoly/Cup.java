@@ -20,14 +20,13 @@ import java.util.List;
  *
  */
 public class Cup {
-	
 	private static List<Die> dice;
 	private static int total;
 	
-	public static void initialize(int numOfDice) {
+	public static void initialize(int numOfDice,boolean predictable) {
 		dice = new ArrayList<Die>(numOfDice);
 		for (int i = 0; i < numOfDice; i++ ){
-			dice.add(new Die());
+			dice.add(new Die(predictable));
 		}
 	}
 	
