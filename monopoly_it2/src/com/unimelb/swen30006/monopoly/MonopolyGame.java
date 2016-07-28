@@ -20,18 +20,18 @@ public class MonopolyGame {
 	
 	private List<Player> players;;
 	private Board board = new Board();
-	private Cup cup = new Cup(NUM_OF_DICE);
 	
 	/**
 	 * initialize the system with number of Players
 	 * @param numOfPlayers number of Players
 	 */
-	public MonopolyGame(int numOfPlayers){
+	public MonopolyGame(int numOfPlayers,boolean predictable){
+		Cup.initialize(NUM_OF_DICE, predictable);
 		players = new ArrayList<Player>(numOfPlayers);
 		
 		for(int i = 0; i < numOfPlayers;i++){
 			Player p;
-			p = new Player("Player " + (i+1), cup, board);
+			p = new Player("Player " + (i+1), board);
 			players.add(p);
 		}
 	}
@@ -59,13 +59,18 @@ public class MonopolyGame {
 	public static void main(String[] args){
 		Scanner scanner = new Scanner(System.in);
 		int numOfPlayer = 0;
+		if(args.length>0){
+			numOfPlayer = Integer.parseInt(args[0]);
+		}
+		boolean predictable = (args.length>1 && args[1].equals("predictable"));
+		
 		while (numOfPlayer > MAX_NUM_OF_PLAYER || numOfPlayer < MIN_NUM_OF_PLAYER){
 			System.out.print("Please enter the number of players (between 2 - 8): ");
 			numOfPlayer = scanner.nextInt();
 		}
 		scanner.close();
 		
-		MonopolyGame game = new MonopolyGame(numOfPlayer);
+		MonopolyGame game = new MonopolyGame(numOfPlayer,predictable);
 		game.playGame();
 	}
 }

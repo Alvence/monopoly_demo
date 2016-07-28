@@ -19,14 +19,12 @@ public class Player {
 	private String name;
 	private Square location;
 	private Board board;
-	private Cup cup;
 	private float cash;
 	private float netWorth;
 	
-	public Player(String name, Cup cup, Board board) {
+	public Player(String name, Board board) {
 		this.name = name;
 		this.board = board;
-		this.cup = cup;
 		location = board.getStartSquare();
 		cash = INIT_CASH;
 		netWorth = 0;
@@ -37,8 +35,8 @@ public class Player {
 	 */
 	public void takeTurn(){
 		//roll dice
-		cup.roll();
-		int fvTot = cup.getTotal();
+		Cup.roll();
+		int fvTot = Cup.getTotal();
 		
 		location = board.getSquare(location, fvTot);
 		location.landOn(this);

@@ -14,20 +14,23 @@ import java.util.Scanner;
  */
 public class MonopolyGame {
 	public static final int ROUNDS_TOTAL = 20;
+	public static final int NUM_OF_DICE = 2;
 	public static final int MIN_NUM_OF_PLAYER = 2;
 	public static final int MAX_NUM_OF_PLAYER = 8;
 	
 	private List<Player> players;;
 	private Board board = new Board();
-	private Die[] dice = {new Die(), new Die()};
+	private Die[] dice = new Die[NUM_OF_DICE];
 	
 	/**
 	 * initialize the system with number of Players
 	 * @param numOfPlayers number of Players
 	 */
-	public MonopolyGame(int numOfPlayers){
+	public MonopolyGame(int numOfPlayers, boolean predictable){
+		for (int i = 0 ; i < NUM_OF_DICE; i++){
+			dice[i] = new Die(predictable);
+		}
 		players = new ArrayList<Player>(numOfPlayers);
-		
 		for(int i = 0; i < numOfPlayers;i++){
 			Player p;
 			p = new Player("Player " + (i+1), dice, board);
@@ -58,13 +61,18 @@ public class MonopolyGame {
 	public static void main(String[] args){
 		Scanner scanner = new Scanner(System.in);
 		int numOfPlayer = 0;
+		if(args.length>0){
+			numOfPlayer = Integer.parseInt(args[0]);
+		}
+		boolean predictable = (args.length>1 && args[1].equals("predictable"));
+		
 		while (numOfPlayer > MAX_NUM_OF_PLAYER || numOfPlayer < MIN_NUM_OF_PLAYER){
 			System.out.print("Please enter the number of players (between 2 - 8): ");
 			numOfPlayer = scanner.nextInt();
 		}
 		scanner.close();
 		
-		MonopolyGame game = new MonopolyGame(numOfPlayer);
+		MonopolyGame game = new MonopolyGame(numOfPlayer,predictable);
 		game.playGame();
 	}
 }

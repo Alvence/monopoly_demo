@@ -11,27 +11,29 @@ import java.util.List;
  * 
  * The behavior is coded based on Figure 25.8 and 25.9
  * 
+ * New Feature:
+ * 1. made a global variable and accessible to Property Squares
+ * 
  * @author 	Yunzhe(Alvin) Jia
- * @version 1.0
+ * @version 2.0
  * @since 	2016-07-19
  *
  */
 public class Cup {
+	private static List<Die> dice;
+	private static int total;
 	
-	private List<Die> dice;
-	private int total;
-	
-	public Cup(int numOfDice) {
+	public static void initialize(int numOfDice,boolean predictable) {
 		dice = new ArrayList<Die>(numOfDice);
 		for (int i = 0; i < numOfDice; i++ ){
-			dice.add(new Die());
+			dice.add(new Die(predictable));
 		}
 	}
 	
 	/**
 	 * roll all the dice
 	 */
-	public void roll(){
+	public static void roll(){
 		total = 0;
 		for (Die die:dice){
 			die.roll();
@@ -39,7 +41,7 @@ public class Cup {
 		}
 	}
 	
-	public int getTotal(){
+	public static int getTotal(){
 		return total;
 	}
 

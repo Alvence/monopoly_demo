@@ -1,4 +1,7 @@
 package com.unimelb.swen30006.monopoly;
+
+import java.util.Random;
+
 /**
  * This class is created based on case study of Monopoly of "Applying UML and Patterns, 3rd edition by Craig Larman".
  * For demonstration on subject SWEN30006 at The University of Melbourne 
@@ -8,15 +11,23 @@ package com.unimelb.swen30006.monopoly;
  *
  */
 public class Die {
+	private static final int FIXED_SEED = 12345;
 	public static final int MAX = 6;
 	private int faceValue;
+	private Random random;
 	
-	public Die(){
+	public Die(boolean predictable){
+		if(predictable){
+			random = new Random(FIXED_SEED);
+		}else{
+			random = new Random();
+		}
 		roll();
 	}
 	
 	public void roll(){
-		faceValue = (int)((Math.random()*MAX)+1);
+		
+		faceValue = random.nextInt(MAX+1);
 	}
 	
 	public int getFaceValue() {
