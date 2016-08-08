@@ -27,7 +27,7 @@ public class Die {
 	
 	public void roll(){
 		
-		faceValue = random.nextInt(MAX+1);
+		faceValue = random.nextInt(MAX)+1;
 	}
 	
 	public int getFaceValue() {
